@@ -32,6 +32,11 @@ public class EquipmentController {
         return HttpResponseEntity.of(BodyDTO.success(equipments));
     }
 
+    @GetMapping("/find/{id}")
+    public ResponseEntity<AbstractHttpDTO> findEquipment(@PathVariable String id) {
+        Equipment equipment = equipmentService.getEquipmentById(id);
+        return HttpResponseEntity.of(BodyDTO.success(equipment));
+    }
     @PutMapping("/{id}")
     public ResponseEntity<AbstractHttpDTO> updateEquipment(@PathVariable String id, @RequestBody Equipment equipment) {
         Equipment newEquipment = equipmentService.updateEquipment(id, equipment);

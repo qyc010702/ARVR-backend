@@ -1,6 +1,8 @@
 package com.ist.datalog.business.service;
 
+import com.ist.datalog.business.model.Equipment;
 import com.ist.datalog.business.model.Model;
+import com.ist.datalog.business.repo.EquipmentRepo;
 import com.ist.datalog.business.repo.ModelRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,11 +10,16 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ModelService {
     @Autowired
     ModelRepo modelRepo;
+
+    @Autowired
+    EquipmentRepo equipmentRepo;
+
     public List<Model> getAllModel(){return modelRepo.findAll();}
 
     public Model getModelById(String id){
@@ -43,6 +50,16 @@ public class ModelService {
             changedModel.setDirectory(newModel.getDirectory());
             changedModel.setDetail(newModel.getDetail());
             return modelRepo.save(changedModel);
+        }
+    }
+
+    public List<Equipment> getEquipmentByModelName(String name) {
+        Optional<Model> modelOptional = modelRepo.findByName(name);
+        if (modelOptional.isPresent()) {
+            String model = modelOptional.get().getId();
+            return equipmentRepo.findByModel(model);
+        } else {
+            throw new RuntimeException("Model not found");
         }
     }
 }

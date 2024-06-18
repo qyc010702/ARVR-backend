@@ -1,5 +1,6 @@
 package com.ist.datalog.business.controller;
 
+import com.ist.datalog.business.model.Equipment;
 import com.ist.datalog.business.model.Model;
 import com.ist.datalog.business.service.ModelService;
 import com.ist.datalog.core.AbstractHttpDTO;
@@ -41,4 +42,11 @@ public class ModelController {
         modelService.deleteModelById(id);
         return HttpResponseEntity.of(BodyDTO.success());
     }
+
+    @GetMapping("/equipmentByModel")
+    public ResponseEntity<AbstractHttpDTO> getEquipmentByModel(@RequestParam String name) {
+        List<Equipment> equipments = modelService.getEquipmentByModelName(name);
+        return HttpResponseEntity.of(BodyDTO.success(equipments));
+    }
+
 }
