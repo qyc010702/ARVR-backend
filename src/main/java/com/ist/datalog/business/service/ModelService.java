@@ -56,7 +56,7 @@ public class ModelService {
     public List<Equipment> getEquipmentByModelName(String name) {
         Optional<Model> modelOptional = modelRepo.findByName(name);
         if (modelOptional.isPresent()) {
-            String model = modelOptional.get().getId();
+            String model = modelOptional.get().getName();
             return equipmentRepo.findByModel(model);
         } else {
             throw new RuntimeException("Model not found");
