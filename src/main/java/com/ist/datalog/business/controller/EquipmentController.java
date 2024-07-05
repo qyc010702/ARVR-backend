@@ -48,4 +48,11 @@ public class EquipmentController {
         equipmentService.deleteEquipmentById(id);
         return HttpResponseEntity.of(BodyDTO.success());
     }
+
+    @GetMapping("/getmodel/{id}")
+    public ResponseEntity<AbstractHttpDTO> findEquipmentByName(@PathVariable String id) {
+        Equipment equipment = equipmentService.getEquipmentById(id);
+
+        return HttpResponseEntity.of(BodyDTO.success(equipment.getModel()));
+    }
 }

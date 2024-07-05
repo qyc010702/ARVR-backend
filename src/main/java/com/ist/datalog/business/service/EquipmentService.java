@@ -46,4 +46,6 @@ public class EquipmentService {
             return equipmentRepo.save(changedEquipment);
         }
     }
+
+
 }
