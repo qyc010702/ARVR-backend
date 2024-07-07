@@ -29,7 +29,6 @@ public class EquipmentController {
     @GetMapping("/allEquipments")
     public List<Equipment> getAllEquipments() {
         List<Equipment> equipments = equipmentService.getAllEquipment();
-        System.out.println(equipments);
         return equipments;
     }
 
