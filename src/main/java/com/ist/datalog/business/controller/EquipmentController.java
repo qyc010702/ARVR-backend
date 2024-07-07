@@ -27,16 +27,18 @@ public class EquipmentController {
     }
 
     @GetMapping("/allEquipments")
-    public ResponseEntity<AbstractHttpDTO> getAllEquipments() {
+    public List<Equipment> getAllEquipments() {
         List<Equipment> equipments = equipmentService.getAllEquipment();
-        return HttpResponseEntity.of(BodyDTO.success(equipments));
+        System.out.println(equipments);
+        return equipments;
     }
 
-    @GetMapping("/find/{id}")
-    public ResponseEntity<AbstractHttpDTO> findEquipment(@PathVariable String id) {
-        Equipment equipment = equipmentService.getEquipmentById(id);
-        return HttpResponseEntity.of(BodyDTO.success(equipment));
+    @GetMapping("/find/{name}")
+    public Equipment findEquipment(@PathVariable String name) {
+        Equipment equipment = equipmentService.getEquipmentByName(name);
+        return equipment;
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<AbstractHttpDTO> updateEquipment(@PathVariable String id, @RequestBody Equipment equipment) {
         Equipment newEquipment = equipmentService.updateEquipment(id, equipment);

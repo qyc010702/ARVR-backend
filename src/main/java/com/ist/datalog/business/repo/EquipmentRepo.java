@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface EquipmentRepo extends MongoRepository<Equipment, String> {
 
     List<Equipment> findByModel(String model);
-
+    Equipment findByName(String name);
 }

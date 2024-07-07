@@ -7,6 +7,7 @@ import com.ist.datalog.business.repo.EquipmentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -17,13 +18,19 @@ public class EquipmentService {
     EquipmentRepo equipmentRepo;
     public List<Equipment> getAllEquipment(){return equipmentRepo.findAll();}
 
-    public Equipment getEquipmentById(String id){
-        return equipmentRepo.findById(id).orElse(null);
+    public Equipment getEquipmentByName(String id){
+        return equipmentRepo.findByName(id);
     }
 
     public Equipment createEquipment(Equipment equipment){
         Date date = new Date(System.currentTimeMillis());
+        equipment.setStatus("已检查");
         equipment.setInTime(date.toString());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        Date newDate = calendar.getTime();
+        equipment.setNextTime(newDate.toString());
         return equipmentRepo.save(equipment);
     }
 
@@ -48,4 +55,7 @@ public class EquipmentService {
     }
 
 
+    public Equipment getEquipmentById(String id) {
+        return equipmentRepo.findByName(id);
+    }
 }
