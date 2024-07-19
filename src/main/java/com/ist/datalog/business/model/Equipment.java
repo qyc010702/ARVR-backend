@@ -21,4 +21,6 @@ public class Equipment {
 
     private String nextTime;
 
+    private String location;
+
 }
